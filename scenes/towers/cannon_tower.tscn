@@ -1,0 +1,70 @@
+[gd_scene load_steps=12 format=3 uid="uid://dm8ryf62k47qw"]
+
+[ext_resource type="PackedScene" uid="uid://di4qidv2g5ur2" path="res://scenes/towers/tower.tscn" id="1_2kw46"]
+[ext_resource type="Script" path="res://scenes/towers/cannon_tower.gd" id="2_10x2p"]
+[ext_resource type="Texture2D" uid="uid://bjp6yrouwbx1o" path="res://assets/graphics/td_pixelart/towers/2 Idle/5.png" id="3_mvtei"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tn3lp"]
+radius = 240.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tonc1"]
+atlas = ExtResource("3_mvtei")
+region = Rect2(0, 0, 70, 130)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adwuq"]
+atlas = ExtResource("3_mvtei")
+region = Rect2(70, 0, 70, 130)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x280m"]
+atlas = ExtResource("3_mvtei")
+region = Rect2(140, 0, 70, 130)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqt0n"]
+atlas = ExtResource("3_mvtei")
+region = Rect2(210, 0, 70, 130)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s5f4e"]
+atlas = ExtResource("3_mvtei")
+region = Rect2(280, 0, 70, 130)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cigxo"]
+atlas = ExtResource("3_mvtei")
+region = Rect2(350, 0, 70, 130)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p5oke"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tonc1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adwuq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x280m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqt0n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s5f4e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cigxo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="CannonTower" instance=ExtResource("1_2kw46")]
+script = ExtResource("2_10x2p")
+
+[node name="CollisionShape2D" parent="AttackArea" index="0"]
+shape = SubResource("CircleShape2D_tn3lp")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+position = Vector2(0, -65)
+scale = Vector2(1, 1)
+sprite_frames = SubResource("SpriteFrames_p5oke")
+frame_progress = 0.577229

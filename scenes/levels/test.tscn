@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://carmkt76my3mi"]
+
+[node name="Test" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 2

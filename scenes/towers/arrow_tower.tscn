@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4132ld2pxm0r"]
+
+[ext_resource type="PackedScene" uid="uid://di4qidv2g5ur2" path="res://scenes/towers/tower.tscn" id="1_ymi4l"]
+[ext_resource type="SpriteFrames" uid="uid://b7d506exeo07y" path="res://assets/graphics/arrow_tower/Stage4/arrow_tower_stage_4.tres" id="2_218nx"]
+[ext_resource type="Script" path="res://scenes/towers/arrow_tower.gd" id="2_bmpg5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5rv2g"]
+radius = 180.0
+
+[node name="ArrowTower" instance=ExtResource("1_ymi4l")]
+script = ExtResource("2_bmpg5")
+
+[node name="CollisionShape2D" parent="AttackArea" index="0"]
+shape = SubResource("CircleShape2D_5rv2g")
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+position = Vector2(0, -65)
+scale = Vector2(1, 1)
+sprite_frames = ExtResource("2_218nx")

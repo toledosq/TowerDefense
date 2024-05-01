@@ -1,0 +1,113 @@
+[gd_scene load_steps=15 format=3 uid="uid://bqq6qwqfxm0xf"]
+
+[ext_resource type="Texture2D" uid="uid://dghtny83h2tku" path="res://assets/graphics/effects/PNG/Explosion/Explosion1.png" id="1_4g21x"]
+[ext_resource type="Texture2D" uid="uid://dxu612a4ph3c3" path="res://assets/graphics/effects/PNG/Explosion/Explosion2.png" id="2_shies"]
+[ext_resource type="Texture2D" uid="uid://df5owxblsg4wj" path="res://assets/graphics/effects/PNG/Explosion/Explosion3.png" id="3_5qe2j"]
+[ext_resource type="Texture2D" uid="uid://cv7nc6alu4jjg" path="res://assets/graphics/effects/PNG/Explosion/Explosion4.png" id="4_xsxed"]
+[ext_resource type="Texture2D" uid="uid://dis26o6vamiv5" path="res://assets/graphics/effects/PNG/Explosion/Explosion5.png" id="5_pvsri"]
+[ext_resource type="Texture2D" uid="uid://cgdmu5p62v0s5" path="res://assets/graphics/effects/PNG/Explosion/Explosion6.png" id="6_nm6vo"]
+[ext_resource type="Texture2D" uid="uid://bqo5ujomxwsfe" path="res://assets/graphics/effects/PNG/Explosion/Explosion7.png" id="7_h1ooc"]
+[ext_resource type="Texture2D" uid="uid://b18jwja83ynh4" path="res://assets/graphics/effects/PNG/Explosion/Explosion8.png" id="8_73lt3"]
+[ext_resource type="Texture2D" uid="uid://y8qvkr8nrthq" path="res://assets/graphics/effects/PNG/Explosion/Explosion9.png" id="9_oa05x"]
+[ext_resource type="Texture2D" uid="uid://cphynvy2vivlw" path="res://assets/graphics/effects/PNG/Explosion/Explosion10.png" id="10_swmbm"]
+[ext_resource type="Texture2D" uid="uid://6gnlc14k86yt" path="res://assets/graphics/effects/PNG/Circle_explosion/Circle_explosion10.png" id="11_oeq80"]
+
+[sub_resource type="Animation" id="Animation_aat2o"]
+resource_name = "cannon_impact"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cannon_impact/AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cannon_impact/AnimatedSprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7, 1.4),
+"transitions": PackedFloat32Array(1, 1, 0.353554),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cannon_impact")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ofc8p"]
+_data = {
+"cannon_impact": SubResource("Animation_aat2o")
+}
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ryf8l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4g21x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_shies")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5qe2j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_xsxed")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_pvsri")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_nm6vo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_h1ooc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_73lt3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_oa05x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_swmbm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_oeq80")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="cannon_impact" type="AnimationPlayer"]
+libraries = {
+"": SubResource("AnimationLibrary_ofc8p")
+}
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ryf8l")
+frame = 9
+offset = Vector2(0, -50)

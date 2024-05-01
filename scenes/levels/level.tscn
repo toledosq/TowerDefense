@@ -1,0 +1,88 @@
+[gd_scene load_steps=7 format=3 uid="uid://cvv81bnhlji8i"]
+
+[ext_resource type="Script" path="res://scenes/levels/level.gd" id="1_6uh57"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_8xak6"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_u64er"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_mwr6u"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_qsday"]
+[ext_resource type="PackedScene" uid="uid://bxwcowreala4k" path="res://scenes/ui/user_interface.tscn" id="6_wbq34"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_6uh57")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Ground" type="Node2D" parent="."]
+
+[node name="PathSpawner" type="Node2D" parent="."]
+
+[node name="Towers" type="Node2D" parent="."]
+
+[node name="Projectiles" type="Node2D" parent="."]
+
+[node name="EnemySpawn" type="Marker2D" parent="."]
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("2_8xak6")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("3_u64er")
+initial_state = NodePath("IdleState")
+
+[node name="IdleState" type="Node" parent="StateChart/Root"]
+script = ExtResource("4_mwr6u")
+
+[node name="ToBuildingState" type="Node" parent="StateChart/Root/IdleState"]
+script = ExtResource("5_qsday")
+to = NodePath("../../BuildingState")
+event = &"building_selected"
+
+[node name="ToTowerSelectedState" type="Node" parent="StateChart/Root/IdleState"]
+script = ExtResource("5_qsday")
+to = NodePath("../../TowerSelectedState")
+event = &"on_tower_selected"
+
+[node name="BuildingState" type="Node" parent="StateChart/Root"]
+script = ExtResource("4_mwr6u")
+
+[node name="ToIdleState" type="Node" parent="StateChart/Root/BuildingState"]
+script = ExtResource("5_qsday")
+to = NodePath("../../IdleState")
+event = &"go_to_idle"
+
+[node name="ToTowerSelectedState" type="Node" parent="StateChart/Root/BuildingState"]
+script = ExtResource("5_qsday")
+to = NodePath("../../TowerSelectedState")
+event = &"on_tower_selected"
+
+[node name="TowerSelectedState" type="Node" parent="StateChart/Root"]
+script = ExtResource("4_mwr6u")
+
+[node name="ToIdleState" type="Node" parent="StateChart/Root/TowerSelectedState"]
+script = ExtResource("5_qsday")
+to = NodePath("../../IdleState")
+event = &"go_to_idle"
+
+[node name="ToBuildingState" type="Node" parent="StateChart/Root/TowerSelectedState"]
+script = ExtResource("5_qsday")
+to = NodePath("../../BuildingState")
+event = &"building_selected"
+
+[node name="UserInterface" parent="." instance=ExtResource("6_wbq34")]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="FinishLine" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FinishLine"]
+
+[connection signal="building_state_exited" from="." to="UserInterface" method="_on_level_building_state_exited"]
+[connection signal="state_exited" from="StateChart/Root/BuildingState" to="." method="_on_building_state_state_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/BuildingState" to="." method="_on_building_state_state_physics_processing"]
+[connection signal="building_selected" from="UserInterface" to="." method="_on_user_interface_building_selected"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="area_entered" from="FinishLine" to="." method="_on_finish_line_area_entered"]

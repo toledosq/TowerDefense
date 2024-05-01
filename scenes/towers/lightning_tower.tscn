@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cep0d01dk0mb3"]
+
+[ext_resource type="PackedScene" uid="uid://di4qidv2g5ur2" path="res://scenes/towers/tower.tscn" id="1_p01el"]
+[ext_resource type="Script" path="res://scenes/towers/lightning_tower.gd" id="2_h5eml"]
+[ext_resource type="SpriteFrames" uid="uid://qlcpe5qoexe1" path="res://assets/graphics/lightning_tower/stage_1/lightning_tower_stage_1.tres" id="3_uhy8a"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_52hvx"]
+radius = 120.0
+
+[node name="LightningTower" instance=ExtResource("1_p01el")]
+script = ExtResource("2_h5eml")
+
+[node name="CollisionShape2D" parent="AttackArea" index="0"]
+shape = SubResource("CircleShape2D_52hvx")
+debug_color = Color(0.94902, 0.227451, 0, 0.0941176)
+
+[node name="AnimatedSprite2D" parent="." index="1"]
+position = Vector2(-1.90735e-06, -48)
+scale = Vector2(0.4, 0.4)
+sprite_frames = ExtResource("3_uhy8a")
+
+[node name="Marker2D" type="Marker2D" parent="ProjectileSpawnPoints" index="0"]
+position = Vector2(1, -58)

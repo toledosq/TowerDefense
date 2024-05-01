@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmkarcn86yyxu"]
+
+[sub_resource type="Curve2D" id="Curve2D_nobng"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 947, 14, 0, 0, 0, 0, 948, 177, 0, 0, 0, 0, 139, 178, 0, 0, 0, 0, 144, 434, 0, 0, 0, 0, 978, 444, 0, 0, 0, 0, 980, 750)
+}
+point_count = 6
+
+[node name="WindyRoad" type="Path2D"]
+curve = SubResource("Curve2D_nobng")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(947, 14)
+rotation = 1.56466
+rotates = false
+loop = false

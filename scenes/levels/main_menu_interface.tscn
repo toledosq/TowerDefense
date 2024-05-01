@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://b72irtfypnvye"]
+
+[ext_resource type="Texture2D" uid="uid://e5e72yxxn2lq" path="res://icon.svg" id="1_ih3ja"]
+[ext_resource type="Script" path="res://scenes/levels/main_menu_interface.gd" id="1_xg8cl"]
+[ext_resource type="Texture2D" uid="uid://jul1qiejeud6" path="res://assets/graphics/tower_bg_2.png" id="2_it70w"]
+
+[node name="MainMenuInterface" type="CanvasLayer"]
+script = ExtResource("1_xg8cl")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -357.0
+offset_top = -257.0
+offset_right = 347.0
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_it70w")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.6
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_constants/h_separation = 20
+theme_override_font_sizes/font_size = 40
+text = "Play Game "
+icon = ExtResource("1_ih3ja")
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(250, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 20
+text = "Quit to Desktop"
+
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -1,0 +1,430 @@
+[gd_scene load_steps=12 format=3 uid="uid://bxwcowreala4k"]
+
+[ext_resource type="Script" path="res://scenes/ui/user_interface.gd" id="1_nlvdg"]
+[ext_resource type="Texture2D" uid="uid://dgqcbvttevl4i" path="res://assets/graphics/icons/lightning_tower_icon.png" id="2_g5ytx"]
+[ext_resource type="Texture2D" uid="uid://bspjssm80l03u" path="res://assets/graphics/17222_bar_bullion_gold_icon.png" id="2_xqcb1"]
+[ext_resource type="Texture2D" uid="uid://cj12crr8lawfv" path="res://assets/graphics/icons/arrow_tower_icon.png" id="3_aro6r"]
+[ext_resource type="Texture2D" uid="uid://c8mg2so7jd1eh" path="res://assets/graphics/icons/cannon_tower_icon.png" id="4_mp6uo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t54yu"]
+font_size = 32
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_co2um"]
+font_size = 32
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_t7ubw"]
+font_size = 60
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_hta4q"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundColor:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_p8qod"]
+resource_name = "fade_in"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundColor:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.145098, 0.247059, 0.466667, 0), Color(0.145098, 0.247059, 0.466667, 0.960784)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_61xrc"]
+_data = {
+"RESET": SubResource("Animation_hta4q"),
+"fade_in": SubResource("Animation_p8qod")
+}
+
+[node name="UserInterface" type="CanvasLayer"]
+script = ExtResource("1_nlvdg")
+
+[node name="BuildMenu" type="VBoxContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -170.0
+offset_right = 320.0
+grow_vertical = 0
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BuildMenu"]
+layout_mode = 2
+alignment = 1
+
+[node name="CurrencyIcon" type="TextureRect" parent="BuildMenu/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_xqcb1")
+expand_mode = 2
+
+[node name="CurrencyCounter" type="Label" parent="BuildMenu/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1000"
+label_settings = SubResource("LabelSettings_t54yu")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="BuildMenu"]
+custom_minimum_size = Vector2(320, 140)
+layout_mode = 2
+color = Color(0.254902, 0.254902, 0.376471, 0.862745)
+
+[node name="MarginContainer" type="MarginContainer" parent="BuildMenu/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="BuildingButtonGrid" type="GridContainer" parent="BuildMenu/ColorRect/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 20
+columns = 3
+
+[node name="ArrowTowerButton" type="Button" parent="BuildMenu/ColorRect/MarginContainer/BuildingButtonGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+toggle_mode = true
+text = "Arrow"
+icon = ExtResource("3_aro6r")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="CannonTowerButton" type="Button" parent="BuildMenu/ColorRect/MarginContainer/BuildingButtonGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+toggle_mode = true
+text = "Cannon"
+icon = ExtResource("4_mp6uo")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="LightningTowerButton" type="Button" parent="BuildMenu/ColorRect/MarginContainer/BuildingButtonGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+toggle_mode = true
+text = "Lightning"
+icon = ExtResource("2_g5ytx")
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
+[node name="HBox_ArrowCost" type="HBoxContainer" parent="BuildMenu/ColorRect/MarginContainer/BuildingButtonGrid"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="BuildMenu/ColorRect/MarginContainer/BuildingButtonGrid/HBox_ArrowCost"]
+layout_mode = 2
+texture = ExtResource("2_xqcb1")
+expand_mode = 2
+
+[node name="ArrowCost" type="Label" parent="BuildMenu/ColorRect/MarginContainer/BuildingButtonGrid/HBox_ArrowCost"]
+layout_mode = 2
+text = "25"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBox_CannonCost" type="HBoxContainer" parent="BuildMenu/ColorRect/MarginContainer/BuildingButtonGrid"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="BuildMenu/ColorRect/MarginContainer/BuildingButtonGrid/HBox_CannonCost"]
+layout_mode = 2
+texture = ExtResource("2_xqcb1")
+expand_mode = 2
+
+[node name="CannonCost" type="Label" parent="BuildMenu/ColorRect/MarginContainer/BuildingButtonGrid/HBox_CannonCost"]
+layout_mode = 2
+text = "50"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxLightningCost" type="HBoxContainer" parent="BuildMenu/ColorRect/MarginContainer/BuildingButtonGrid"]
+layout_mode = 2
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="BuildMenu/ColorRect/MarginContainer/BuildingButtonGrid/HBoxLightningCost"]
+layout_mode = 2
+texture = ExtResource("2_xqcb1")
+expand_mode = 2
+
+[node name="LightningCost" type="Label" parent="BuildMenu/ColorRect/MarginContainer/BuildingButtonGrid/HBoxLightningCost"]
+layout_mode = 2
+text = "100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RoundStats" type="MarginContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.86
+anchor_right = 1.0
+anchor_bottom = 0.26
+offset_left = -57.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="RoundStats"]
+layout_mode = 2
+color = Color(0.254902, 0.254902, 0.376471, 0.862745)
+
+[node name="RoundStats" type="VBoxContainer" parent="RoundStats/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.5
+offset_top = -90.0
+offset_right = 79.5
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Wave" type="HBoxContainer" parent="RoundStats/ColorRect/RoundStats"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Label" type="Label" parent="RoundStats/ColorRect/RoundStats/Wave"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Wave"
+label_settings = SubResource("LabelSettings_co2um")
+vertical_alignment = 1
+
+[node name="WaveCounter" type="Label" parent="RoundStats/ColorRect/RoundStats/Wave"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "4"
+label_settings = SubResource("LabelSettings_t7ubw")
+
+[node name="EnemiesKilled" type="HBoxContainer" parent="RoundStats/ColorRect/RoundStats"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="RoundStats/ColorRect/RoundStats/EnemiesKilled"]
+layout_mode = 2
+text = "Enemies Defeated:"
+
+[node name="EnemiesKilledCounter" type="Label" parent="RoundStats/ColorRect/RoundStats/EnemiesKilled"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "4"
+
+[node name="TowersBuilt" type="HBoxContainer" parent="RoundStats/ColorRect/RoundStats"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="RoundStats/ColorRect/RoundStats/TowersBuilt"]
+layout_mode = 2
+text = "Towers Built:"
+
+[node name="TowerCounter" type="Label" parent="RoundStats/ColorRect/RoundStats/TowersBuilt"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "4"
+
+[node name="EnemiesKilledProgressBar" type="ProgressBar" parent="RoundStats/ColorRect/RoundStats"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 30)
+layout_mode = 2
+step = 1.0
+show_percentage = false
+
+[node name="GameOverScreen" type="MarginContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameOverScreen"]
+libraries = {
+"": SubResource("AnimationLibrary_61xrc")
+}
+
+[node name="BackgroundColor" type="ColorRect" parent="GameOverScreen"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverScreen"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="StatsContainer" type="MarginContainer" parent="GameOverScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="VBox_StatsList" type="VBoxContainer" parent="GameOverScreen/VBoxContainer/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="MarginContainer" type="MarginContainer" parent="GameOverScreen/VBoxContainer/StatsContainer/VBox_StatsList"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 30
+
+[node name="VictoryOrDefeatLabel" type="Label" parent="GameOverScreen/VBoxContainer/StatsContainer/VBox_StatsList/MarginContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Victory!
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBox_WavesSurvived" type="HBoxContainer" parent="GameOverScreen/VBoxContainer/StatsContainer/VBox_StatsList"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label_WavesSurvived" type="Label" parent="GameOverScreen/VBoxContainer/StatsContainer/VBox_StatsList/HBox_WavesSurvived"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "Waves Survived: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label_WavesSurvivedCounter" type="Label" parent="GameOverScreen/VBoxContainer/StatsContainer/VBox_StatsList/HBox_WavesSurvived"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="HBox_EnemiesKilled" type="HBoxContainer" parent="GameOverScreen/VBoxContainer/StatsContainer/VBox_StatsList"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label_EnemiesKilled" type="Label" parent="GameOverScreen/VBoxContainer/StatsContainer/VBox_StatsList/HBox_EnemiesKilled"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "Enemies Killed: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label_EnemiesKilledCounter" type="Label" parent="GameOverScreen/VBoxContainer/StatsContainer/VBox_StatsList/HBox_EnemiesKilled"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBox_TowersBuilt" type="HBoxContainer" parent="GameOverScreen/VBoxContainer/StatsContainer/VBox_StatsList"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label_TowersBuilt" type="Label" parent="GameOverScreen/VBoxContainer/StatsContainer/VBox_StatsList/HBox_TowersBuilt"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "Towers Built:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label_TowersBuiltCounter" type="Label" parent="GameOverScreen/VBoxContainer/StatsContainer/VBox_StatsList/HBox_TowersBuilt"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBox_Currency" type="HBoxContainer" parent="GameOverScreen/VBoxContainer/StatsContainer/VBox_StatsList"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label_Currency" type="Label" parent="GameOverScreen/VBoxContainer/StatsContainer/VBox_StatsList/HBox_Currency"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "Gold Remaining: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label_CurrencyCounter" type="Label" parent="GameOverScreen/VBoxContainer/StatsContainer/VBox_StatsList/HBox_Currency"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameOverScreen/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="PlayButton" type="Button" parent="GameOverScreen/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Play Again"
+
+[node name="QuitButton" type="Button" parent="GameOverScreen/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit to Menu"
+
+[connection signal="toggled" from="BuildMenu/ColorRect/MarginContainer/BuildingButtonGrid/ArrowTowerButton" to="." method="_on_arrow_tower_button_toggled"]
+[connection signal="toggled" from="BuildMenu/ColorRect/MarginContainer/BuildingButtonGrid/CannonTowerButton" to="." method="_on_cannon_tower_button_toggled"]
+[connection signal="toggled" from="BuildMenu/ColorRect/MarginContainer/BuildingButtonGrid/LightningTowerButton" to="." method="_on_lightning_tower_button_toggled"]
+[connection signal="pressed" from="GameOverScreen/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="GameOverScreen/VBoxContainer/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

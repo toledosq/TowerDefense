@@ -1,0 +1,6 @@
+res://scenes/levels/level.tscn
+res://assets/graphics/lightning_tower/stage_1/lightning_tower_stage_1.tres
+res://assets/graphics/arrow_tower/Stage4/arrow_tower_stage_4.tres
+res://assets/tilemaps/straight_road_level.tres
+res://scenes/effects/floating_text.tscn
+res://scenes/levels/levels/windy_road_level.tscn

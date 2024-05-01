@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://di4qidv2g5ur2"]
+
+[ext_resource type="Script" path="res://scenes/towers/tower.gd" id="1_0ewej"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="1_a4uf4"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="2_in56l"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="3_unwyr"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="4_n03yu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1xaw8"]
+radius = 449.055
+
+[node name="Tower" type="StaticBody2D"]
+collision_mask = 2
+script = ExtResource("1_0ewej")
+metadata/_edit_horizontal_guides_ = []
+
+[node name="AttackArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("CircleShape2D_1xaw8")
+debug_color = Color(0.996078, 0, 0.168627, 0.0588235)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-16, -32)
+scale = Vector2(0.5, 0.5)
+autoplay = "default"
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("1_a4uf4")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("2_in56l")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/Root"]
+script = ExtResource("3_unwyr")
+
+[node name="ToAttack" type="Node" parent="StateChart/Root/Idle"]
+script = ExtResource("4_n03yu")
+to = NodePath("../../Attack")
+event = &"enemy_detected"
+
+[node name="Attack" type="Node" parent="StateChart/Root"]
+script = ExtResource("3_unwyr")
+
+[node name="ToIdle" type="Node" parent="StateChart/Root/Attack"]
+script = ExtResource("4_n03yu")
+to = NodePath("../../Idle")
+event = &"no_target"
+
+[node name="AttackCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="HitCooldown" type="Timer" parent="."]
+
+[node name="ProjectileSpawnPoints" type="Node2D" parent="."]
+
+[node name="Projectiles" type="Node2D" parent="."]
+
+[connection signal="area_exited" from="AttackArea" to="." method="_on_attack_area_area_exited"]
+[connection signal="state_entered" from="StateChart/Root/Idle" to="." method="_on_idle_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Idle" to="." method="_on_idle_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Attack" to="." method="_on_attack_state_physics_processing"]
+[connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
